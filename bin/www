@@ -25,6 +25,35 @@ var models = require('../models');
 
 models.sequelize.sync({ force: true })
   .then(async function() {
+    const point = { type: 'Point', coordinates: [47.323662, 5.027714] };
+    const farm = await models.Farm.create({
+      name: 'My farm',
+      address: '321, in a beautiful street',
+      city: 'Dijon',
+      postal_code: 21000,
+      location: point
+    });
+
+    const farmer = await models.Farmer.create({
+      name: 'John Doe',
+      email: 'john.doe@farmer.com',
+      phone: '06 12 34 56 78'
+    });
+
+    await farm.addFarmer(farmer);
+    await farmer.addFarm(farm);
+
+    const newFarm = await models.Farm.findOne({
+      where: { name: 'My farm' },
+      include: models.Farmer
+    });
+    // console.log(newFarm.Farmers);
+
+    const newFarmer = await models.Farmer.findOne({
+      where: { name: 'John Doe' },
+      include: models.Farm
+    });
+    // console.log(newFarmer.Farms);
 
     /**
      * Listen on provided port, on all network interfaces.
