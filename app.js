@@ -1,3 +1,5 @@
+const db = require('./models/index');
+const session = require('express-session');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,8 +8,43 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// API
+var getFarmersRouter = require('./routes/API/getFarmers');
+var getFarmerRouter = require('./routes/API/getFarmer');
 
 var app = express();
+
+// sessions
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  saveUninitialized: true,
+  resave: true,
+  cookie: {
+    maxAge: 60000,
+    secure: false
+  }
+}));
+
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+}
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(cookieParser());
+app.use(session(sess));
+app.use(session({
+  // generate a custom session id for new sessions
+  genid: function(req) {
+    return genuuid() // use UUIDs for session IDs
+  },
+  secret: 'keyboard cat'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +58,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// API
+app.use('/API/getFarmers', getFarmersRouter);
+app.use('/API/getFarmer', getFarmerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

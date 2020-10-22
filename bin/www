@@ -25,35 +25,40 @@ var models = require('../models');
 
 models.sequelize.sync({ force: true })
   .then(async function() {
-    const point = { type: 'Point', coordinates: [47.323662, 5.027714] };
-    const farm = await models.Farm.create({
-      name: 'My farm',
-      address: '321, in a beautiful street',
-      city: 'Dijon',
-      postal_code: 21000,
-      location: point
-    });
+    const nevers = { type: 'Point', coordinates: [46.987526, 3.150670] };
+    const pouges = { type: 'Point', coordinates: [47.076937, 3.094017] };
 
-    const farmer = await models.Farmer.create({
+    const farm1 = await models.Farm.create({
+      name: 'My first farm',
+      address: '321, beautiful street',
+      city: 'Nevers',
+      postal_code: 21000,
+      location: nevers
+    });
+    const farm2 = await models.Farm.create({
+      name: 'Me second farm',
+      address: '654, awesome street',
+      city: 'Pouges',
+      postal_code: 21000,
+      location: pouges
+    })
+
+    const farmer1 = await models.Farmer.create({
       name: 'John Doe',
       email: 'john.doe@farmer.com',
       phone: '06 12 34 56 78'
     });
 
-    await farm.addFarmer(farmer);
-    await farmer.addFarm(farm);
-
-    const newFarm = await models.Farm.findOne({
-      where: { name: 'My farm' },
-      include: models.Farmer
+    const farmer2 = await models.Farmer.create({
+      name: 'Jane Doe',
+      email: 'jane.doe@farmer.com',
+      phone: '06 98 76 54 32'
     });
-    // console.log(newFarm.Farmers);
 
-    const newFarmer = await models.Farmer.findOne({
-      where: { name: 'John Doe' },
-      include: models.Farm
-    });
-    // console.log(newFarmer.Farms);
+    await farm1.addFarmer(farmer2);
+    await farm2.addFarmer(farmer2);
+    await farmer2.addFarm(farm1);
+    await farmer2.addFarm(farm2);
 
     /**
      * Listen on provided port, on all network interfaces.
