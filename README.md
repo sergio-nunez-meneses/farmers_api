@@ -2,7 +2,7 @@
 
 2. ```cd folder_name```
 
-3. ```npm install nodemon sequelize mysql2 pg pg-hstore express-session express-async-handler cors body-parser joi bcrypt fs --save```
+3. ```npm install nodemon sequelize mysql2 pg pg-hstore express-session express-async-handler cors body-parser joi bcrypt fs express-fileupload --save```
 
 4. ```sequelize init```
 

@@ -30,37 +30,95 @@ models.sequelize.sync({ force: true })
     const fourchambault = { type: 'Point', coordinates: [47.019237, 3.087279] };
     const varennes = { type: 'Point', coordinates: [47.001512, 3.134294] };
 
-    const farm1 = await models.Farm.create({
-      name: 'My first farm',
-      address: '321, beautiful street',
-      city: 'Nevers',
-      postal_code: 21000,
-      location: nevers
-    });
-    const farm2 = await models.Farm.create({
-      name: 'Me second farm',
-      address: '654, awesome street',
-      city: 'Pouges',
-      postal_code: 21000,
-      location: pouges
-    })
+    let farmerNames = [
+      'John Doe',
+      'Jane Doe',
+      'Jenny Doe',
+      'Jason Doe'
+    ];
 
-    const farmer1 = await models.Farmer.create({
-      name: 'John Doe',
-      email: 'john.doe@farmer.com',
-      phone: '06 12 34 56 78'
-    });
+    let farmerEmails = [
+      'john.doe@farmer.com',
+      'jane.doe@farmer.com',
+      'jenny.doe@farmer.com',
+      'jason.doe@farmer.com'
+    ];
 
-    const farmer2 = await models.Farmer.create({
-      name: 'Jane Doe',
-      email: 'jane.doe@farmer.com',
-      phone: '06 98 76 54 32'
-    });
+    let farmerPhones = [
+      '06 12 34 56 78',
+      '06 98 76 54 32',
+      '07 23 45 67 89',
+      '07 87 65 43 21'
+    ];
 
-    await farm1.addFarmer(farmer2);
-    await farm2.addFarmer(farmer2);
-    await farmer2.addFarm(farm1);
-    await farmer2.addFarm(farm2);
+    let farmNames = [
+      'My first farm',
+      'My second farm',
+      'My third farm',
+      'My fourth farm'
+    ];
+
+    let farmAddress = [
+      '12, rue du marché',
+      '34, rue du fromage',
+      '98, rue de la tomate',
+      "76, rue de l'agriculture"
+    ];
+
+    let farmCities = [
+      'nevers',
+      'pouges',
+      'fourchambault',
+      'varennes'
+    ];
+
+    let farmPostalCodes = [
+      58000,
+      58320,
+      58600,
+      58640
+    ];
+
+    let farmLocations = [
+      nevers,
+      pouges,
+      fourchambault,
+      varennes
+    ];
+
+    let imageNames = [
+      'first-farm.png',
+      'second-farm.png',
+      'third-farm.png',
+      'fourth-farm.png'
+    ]
+
+    for (let i = 0; i < farmNames.length; i++) {
+      let farmer = await models.Farmer.create({
+        name: farmerNames[i],
+        email: farmerEmails[i],
+        phone: farmerPhones[i]
+      });
+
+      let farm = await models.Farm.create({
+        name: farmNames[i],
+        address: farmAddress[i],
+        city: farmCities[i],
+        postal_code: farmPostalCodes[i],
+        location: farmLocations[i]
+      });
+
+      let image = await models.FarmImage.create({
+        name: imageNames[i]
+      });
+
+      await farm.addFarmImage(image);
+
+      if ((Math.random() * 100) >= 50) {
+        await farmer.addFarm(farm);
+        await farm.addFarmer(farmer);
+      }
+    }
 
     /**
      * Listen on provided port, on all network interfaces.
