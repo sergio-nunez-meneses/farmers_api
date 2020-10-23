@@ -9,7 +9,12 @@ router.use(cors());
 router.get('/:id', ash(async function(req, res, next) {
   const farmer = await db.Farmer.findOne({
     where: { id: req.params.id },
-    include: db.Farm
+    include: [
+      {
+        model: db.Farm,
+        include: db.FarmImage
+      }
+    ]
   });
 
   if (!farmer) {

@@ -8,8 +8,18 @@ router.use(cors());
 
 router.get('/', ash(async function(req, res, next) {
   const farmers = await db.Farmer.findAll({
-    include: db.Farm
+    include: [
+      {
+        model: db.Farm,
+        include: db.FarmImage
+      }
+    ]
   });
+
+  if (!farmers) {
+    res.send({ error: "Farmers don't exist" });
+    return;
+  }
 
   res.send({
     farmers: farmers,

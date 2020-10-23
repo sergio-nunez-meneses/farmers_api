@@ -25,8 +25,10 @@ var models = require('../models');
 
 models.sequelize.sync({ force: true })
   .then(async function() {
-    const nevers = { type: 'Point', coordinates: [46.987526, 3.150670] };
+    const nevers = { type: 'Point', coordinates: [46.987471, 3.150616] };
     const pouges = { type: 'Point', coordinates: [47.076937, 3.094017] };
+    const fourchambault = { type: 'Point', coordinates: [47.019237, 3.087279] };
+    const varennes = { type: 'Point', coordinates: [47.001512, 3.134294] };
 
     const farm1 = await models.Farm.create({
       name: 'My first farm',

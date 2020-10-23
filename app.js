@@ -1,5 +1,6 @@
 const db = require('./models/index');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +9,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var uploadRouter = require('./routes/upload');
 // API
 var getFarmersRouter = require('./routes/API/getFarmers');
 var getFarmerRouter = require('./routes/API/getFarmer');
@@ -50,6 +52,9 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(fileUpload({
+  limits: { fileSize: 50 * 1024 * 1024 },
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -58,6 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/upload', uploadRouter);
 // API
 app.use('/API/getFarmers', getFarmersRouter);
 app.use('/API/getFarmer', getFarmerRouter);
