@@ -52,13 +52,13 @@ models.sequelize.sync({ force: true })
     ];
 
     let farmNames = [
-      'My first farm',
-      'My second farm',
-      'My third farm',
-      'My fourth farm'
+      'Ma première ferme',
+      'Ma deuxième ferme',
+      'Ma troisième ferme',
+      'Ma quatrième ferme'
     ];
 
-    let farmAddress = [
+    let farmAddresses = [
       '12, rue du marché',
       '34, rue du fromage',
       '98, rue de la tomate',
@@ -86,37 +86,162 @@ models.sequelize.sync({ force: true })
       varennes
     ];
 
-    let imageNames = [
-      'first-farm.png',
-      'second-farm.png',
-      'third-farm.png',
-      'fourth-farm.png'
+    // farm schedues
+    let farmDays = [
+      'lundi',
+      'mardi',
+      'mercredi',
+      'jeudi',
+      'vendredi',
+      'samedi',
+      'dimanche'
     ]
 
+    let farmOpenings = [
+      '10:00',
+      '11:00',
+      '12:00',
+      '13:00',
+      '14:00',
+      '15:00',
+      '16:00'
+    ]
+
+    let farmClosings = [
+      '14:00',
+      '15:00',
+      '16:00',
+      '17:00',
+      '18:00',
+      '19:00',
+      '20:00'
+    ]
+
+    let farmActivities = [
+      'visites pédagogiques',
+      'vente sur marché',
+      'livraison à domicile',
+      'vente sur place',
+      'visites libres'
+    ]
+
+    // farm images
+    let imageNames = [
+      'première-ferme.png',
+      'deuxième-ferme.png',
+      'troisième-ferme.png',
+      'quatrième-ferme.png'
+    ];
+
+    // farm products
+    let products = {
+      fruit: ['tomates', 'pommes', 'poires'],
+      legumes: ['pommes de terre', 'poireaux', 'betteraves', 'champignons'],
+      laitiers: ['fromages', 'lait']
+    }
+
+    let productDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+    let productSeasons = [
+      'été',
+      'hiver, automne, printemps',
+      'hiver, automne',
+      "toute l'année",
+      'automne, printemps'
+    ];
+
+    // product labels
+    let labelNames = [
+      'Agriculture Biologique (AB)',
+      "Appellation d'origine protégée/contrôlée (AOP/AOC)",
+      'Indication géographique protégée (IGP)',
+      'Spécialité traditionnelle garantie (STG)',
+      'Label Rouge (LR)'
+    ];
+
+    // let labelsDescriptions = [
+    //   "L'Agriculture Biologique est un mode de production qui allie les pratiques environnementales optimales, le respect de la biodiversité, la préservation des ressources naturelles et l'assurance d'un niveau élevé de bien-être animal. Tout au long de la filière, les opérateurs engagés dans le mode de production et de transformation biologique respectent un cahier des charges rigoureux qui privilégie les procédés non polluants, respectueux de l'écosystème et des animaux. C'est aussi un mode de production qui exclut l'usage des OGM et qui limite le recours aux intrants, en privilégiant l'emploi de ressources naturelles et renouvelables dans le cadre de systèmes agricoles organisés à l'échelle locale, et en restreignant strictement l'utilisation de produits chimiques de synthèse. Enfin, l'Agriculture Biologique s'attache également à renforcer ses liens avec l'ensemble de la société : création d'emplois, participation à l'aménagement du territoire, préservation et promotion des savoir-faire locaux...",
+    //   "L'Appellation d'origine protégée (AOP) désigne un produit dont toutes les étapes de production sont réalisées selon un savoir-faire reconnu dans une même aire géographique, qui donne ses caractéristiques au produit. C'est un signe européen qui protège le nom du produit dans toute l'Union européenne. L'Appellation d'origine contrôlée (AOC) désigne des produits répondant aux critères de l'AOP et protège la dénomination sur le territoire français. Elle constitue une étape vers l'AOP, désormais signe européen. Elle peut aussi concerner des produits non couverts par la réglementation européenne (cas des produits de la forêt par exemple). C'est la notion de terroir qui fonde le concept des Appellations d'origine. Un terroir est une zone géographique particulière où une production tire son originalité directement des spécificités de son aire de production. Espace délimité dans lequel une communauté humaine construit au cours de son histoire un savoir-faire collectif de production, le terroir est fondé sur un système d'interactions entre un milieu physique et biologique, et un ensemble de facteurs humains. Là se trouvent l'originalité et la typicité du produit.Les règles d'élaboration d'une AOP sont inscrites dans un cahier des charges et font l'objet de procédures de contrôle, mises en œuvre par un organisme indépendant agréé par l'INAO.",
+    //   "L'Indication géographique protégée (IGP) identifie un produit agricole, brut ou transformé, dont la qualité, la réputation ou d'autres caractéristiques sont liées à son origine géographique. L'IGP s'applique aux secteurs agricoles, agroalimentaires et viticoles. Les IG artisanales ont été créées en 2013. Une trentaine de projets sont en cours d'instruction à l'INPI. Pour prétendre à l'obtention de ce signe officiel lié à la qualité et à l'origine (SIQO), une étape au moins parmi la production, la transformation ou l'élaboration de ce produit doit avoir lieu dans cette aire géographique délimitée. Pour le vin, toutes les opérations réalisées depuis la récolte du raisin jusqu'à la fin du processus d'élaboration du vin sont réalisées dans la zone géographique considérée. L'IGP est liée à un savoir-faire. Elle ne se crée pas, elle consacre une production existante et lui confère dès lors une protection à l'échelle nationale mais aussi internationale. L'IGP peut être basée sur la réputation du produit, qui s'entend au sens d'une forte reconnaissance par le public à un instant donné, et qui doit être associée à un savoir-faire ou une qualité déterminée attribuables à l'origine géographique. Les règles d'élaboration d'une IGP sont inscrites dans un cahier des charges et font l'objet de procédures de contrôle, mises en œuvre par un organisme indépendant agréé par l'INAO.",
+    //   "La Spécialité traditionnelle garantie (STG) correspond à un produit dont les qualités spécifiques sont liées à une composition, des méthodes de fabrication ou de transformation fondées sur une tradition. La particularité de la Spécialité traditionnelle garantie se définit par deux éléments distincts et pourtant très liés : la spécificité et l'aspect traditionnel. La STG vise à définir la composition ou le mode de production traditionnel d'un produit, sans toutefois que celui-ci ne présente nécessairement de lien avec son origine géographique. La Spécialité traditionnelle garantie relève d'un usage, d'un savoir-faire, d'une pratique ancienne, typique, particulière nationale, régionale ou locale mais qui peuvent être réalisés en dehors du pays ou de la région de provenance ou de fabrication du produit. La STG ne s'applique qu'à des produits ou denrées alimentaires. Les règles d'élaboration d'une STG sont inscrites dans un cahier des charges et font l'objet de procédures de contrôle, mises en œuvre par un organisme indépendant agréé par l'INAO.",
+    //   "Le Label Rouge est un signe national qui désigne des produits qui, par leurs conditions de production ou de fabrication, ont un niveau de qualité supérieur par rapport aux autres produits similaires habituellement commercialisés. La qualité, dans ce cas, se rapporte à l'ensemble des propriétés et des caractéristiques d'un produit, et lui confèrent son aptitude à satisfaire des besoins implicites ou explicites. Outre les caractéristiques sensorielles du produit Label Rouge et leur perception par le consommateur, la qualité supérieure repose sur : - des conditions de production, qui se distinguent des conditions de production des produits similaires habituellement commercialisés, - l'image du produit au regard de ses conditions de production, - les éléments de présentation ou de service. Les produits qui peuvent bénéficier d'un Label Rouge sont les denrées alimentaires et les produits agricoles non alimentaires et non transformés. Le Label Rouge est ouvert à tous les produits, quelle que soit leur origine géographique (y compris hors de l'Union européenne). À toutes les étapes de sa production et de son élaboration, le produit Label Rouge doit répondre aux exigences définies dans un cahier des charges, validé par l'Institut national de l'origine et de la qualité (INAO) et homologué par un arrêté interministériel publié au Journal officiel de la République française. Pour certaines filières, ce cahier des charges complète des conditions de production communes. Le contrôle du respect de ces exigences et de la traçabilité des produits est assuré par un organisme certificateur indépendant, sur la base d'un plan de contrôle validé par l'INAO. Le suivi du maintien dans le temps de la qualité gustative supérieure est assuré par la réalisation  régulière d'analyses sensorielles et de tests organoleptiques qui comparent le produit Label Rouge avec le produit courant. Une denrée ou un produit Label Rouge peut bénéficier simultanément d'une Indication géographique protégée ou d'une Spécialité traditionnelle garantie, mais pas d'une Appellation d'origine (AOC/AOP)."
+    // ];
+
+    let labelsDescriptions = [
+      "c'est bio",
+      "c'est protégé",
+      "c'est géo",
+      "j'en sais rien",
+      "c'est rouge quoi"
+    ];
+
+    let labelImages = [
+      'ab-logo.png',
+      'aop-aoc-logo.png',
+      'igp-logo.png',
+      'stg-logo.png',
+      'label-rouge-logo.png'
+    ];
+
+    // create product labels
+    const labels = [];
+    for (let i = 0; i < labelNames.length; i++) {
+      labels.push(await models.ProductLabel.create({
+        name: labelNames[i],
+        image: labelImages[i],
+        description: labelsDescriptions[i]
+      }))
+    }
+
+    // create and assign farmers and farms
     for (let i = 0; i < farmNames.length; i++) {
       let farmer = await models.Farmer.create({
         name: farmerNames[i],
         email: farmerEmails[i],
         phone: farmerPhones[i]
-      });
+      })
 
       let farm = await models.Farm.create({
         name: farmNames[i],
-        address: farmAddress[i],
+        address: farmAddresses[i],
         city: farmCities[i],
         postal_code: farmPostalCodes[i],
         location: farmLocations[i]
       });
 
-      let image = await models.FarmImage.create({
+      await farm.createFarmImage({
         name: imageNames[i]
       });
 
-      await farm.addFarmImage(image);
-
-      if ((Math.random() * 100) >= 50) {
-        await farmer.addFarm(farm);
+      if (Math.random() > 0.5) {
         await farm.addFarmer(farmer);
+      }
+
+      // create and assign farm schedules
+      for (let j = 0; j < 20; j++) {
+        await farm.createFarmSchedule({
+          day: farmDays[Math.floor(Math.random() * farmDays.length)],
+          start_time: farmOpenings[Math.floor(Math.random() * farmOpenings.length)],
+          end_time: farmClosings[Math.floor(Math.random() * farmClosings.length)],
+          activity: farmActivities[Math.floor(Math.random() * farmActivities.length)]
+        });
+      }
+
+      // create and assign farm products
+      for(let [type, list] of Object.entries(products)) {
+        for(let product of list) {
+          if (Math.random() > 0.2) {
+            let newProduct = await farm.createFarmProduct({
+              name: product,
+              type: type,
+              description: productDescription,
+              season: productSeasons[Math.floor(Math.random() * productSeasons.length)]
+            });
+
+            // assign product labels
+            await labels[Math.floor(Math.random() * labels.length)].addFarmProduct(newProduct);
+          }
+        }
       }
     }
 

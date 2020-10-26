@@ -15,7 +15,6 @@ router.post('/', ash(async function(req, res) {
 
   imageFile = req.files.sampleFile;
   uploadPath = './uploads/' + imageFile.name;
-  console.log(imageFile, uploadPath);
 
   await imageFile.mv(uploadPath);
 
@@ -29,7 +28,7 @@ router.post('/', ash(async function(req, res) {
   // await image.setFarm(farm);
   await farm.addFarmImage(image);
 
-  res.send('File uploaded to ' + uploadPath);
+  res.redirect('/index');
 }));
 
 module.exports = router;
