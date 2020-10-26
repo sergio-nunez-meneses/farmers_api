@@ -30,13 +30,19 @@ router.post('/', ash(async function(req, res, next) {
       return;
     }
 
-    const client = db.Client.create({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone
+    const client = await db.Client.findOrCreate({
+      where: {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone
+      },
     });
 
-    res.send({ message: 'Nous avons bien reçu vos contributions!' });
+    if (client) {
+      req.session.clientName = req.body.name;
+      res.send({ message: 'Nous avons bien enregistré vos cordonnés!' });
+      return;
+    }
   }
 }));
 
