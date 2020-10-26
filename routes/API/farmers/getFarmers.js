@@ -1,4 +1,4 @@
-const db = require('../../models/index');
+const db = require('../../../models/index');
 const ash = require('express-async-handler');
 const cors = require('cors');
 const express = require('express');
@@ -6,9 +6,8 @@ const router = express.Router();
 
 router.use(cors());
 
-router.get('/:id', ash(async function(req, res, next) {
-  const farmer = await db.Farmer.findOne({
-    where: { id: req.params.id },
+router.get('/', ash(async function(req, res, next) {
+  const farmers = await db.Farmer.findAll({
     include: [
       {
         model: db.Farm,
@@ -17,13 +16,13 @@ router.get('/:id', ash(async function(req, res, next) {
     ]
   });
 
-  if (!farmer) {
-    res.send({ error: "Farmer doesn't exist" });
+  if (!farmers) {
+    res.send({ error: "Farmers don't exist" });
     return;
   }
 
   res.send({
-    farmer: farmer,
+    farmers: farmers,
     id: req.session.id
   });
 }));

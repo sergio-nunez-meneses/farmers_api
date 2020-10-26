@@ -1,5 +1,5 @@
 node_modules
-routes/API/search.js
+insertContributions.js
 tools/db.mwb.bak
 tools/db.pdf
 uploads

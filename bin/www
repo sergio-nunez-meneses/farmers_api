@@ -213,8 +213,9 @@ models.sequelize.sync({ force: true })
         name: imageNames[i]
       });
 
-      if (Math.random() > 0.5) {
+      if (Math.random() > 0.3) {
         await farm.addFarmer(farmer);
+        await farmer.addFarm(farm);
       }
 
       // create and assign farm schedules

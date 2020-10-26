@@ -11,8 +11,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var uploadRouter = require('./routes/upload');
 // API
-var getFarmersRouter = require('./routes/API/getFarmers');
-var getFarmerRouter = require('./routes/API/getFarmer');
+var getFarmersRouter = require('./routes/API/farmers/getFarmers');
+var getFarmerRouter = require('./routes/API/farmers/getFarmer');
+var getFarmsRouter = require('./routes/API/farms/getFarms');
+var getFarmRouter = require('./routes/API/farms/getFarm');
+var searchByRouter = require('./routes/API/search');
+var clientRouter = require('./routes/API/clients/insertClient');
+var contributionsRouter = require('./routes/API/clients/insertContributions');
 
 var app = express();
 
@@ -58,15 +63,19 @@ app.use(fileUpload({
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/upload', uploadRouter);
 // API
-app.use('/API/getFarmers', getFarmersRouter);
-app.use('/API/getFarmer', getFarmerRouter);
+app.use('/API/farmers/getFarmers', getFarmersRouter);
+app.use('/API/farmers/getFarmer', getFarmerRouter);
+app.use('/API/farms/getFarms', getFarmsRouter);
+app.use('/API/farms/getFarm', getFarmRouter);
+app.use('/API/search', searchByRouter);
+app.use('/API/clients/insertClient', clientRouter);
+app.use('/API/clients/insertContributions', contributionsRouter);
 
 
 // catch 404 and forward to error handler
