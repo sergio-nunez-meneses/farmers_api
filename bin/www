@@ -25,10 +25,10 @@ var models = require('../models');
 
 models.sequelize.sync({ force: true })
   .then(async function() {
-    const nevers = { type: 'Point', coordinates: [46.987471, 3.150616] };
-    const pouges = { type: 'Point', coordinates: [47.076937, 3.094017] };
-    const fourchambault = { type: 'Point', coordinates: [47.019237, 3.087279] };
-    const varennes = { type: 'Point', coordinates: [47.001512, 3.134294] };
+    const nevers = '46.987471, 3.150616';
+    const pouges = '47.076937, 3.094017';
+    const fourchambault = '47.019237, 3.087279';
+    const varennes = '47.001512, 3.134294';
 
     let farmerNames = [
       'John Doe',

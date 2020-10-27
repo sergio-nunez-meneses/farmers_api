@@ -26,7 +26,7 @@ module.exports = {
       },
       location: {
         allowNull: false,
-        type: Sequelize.GEOMETRY
+        type: Sequelize.STRING
       },
       website: {
         allowNull: true

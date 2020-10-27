@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     address: { type: DataTypes.STRING(50), allowNull: false },
     city: { type: DataTypes.STRING(40), allowNull: false },
     postal_code: { type: DataTypes.INTEGER(5), allowNull: true },
-    location: { type: DataTypes.GEOMETRY, allowNull: false },
+    location: { type: DataTypes.STRING(40), allowNull: false },
     website: { type: DataTypes.STRING(45), allowNull: true },
   }, {
     sequelize,
