@@ -28,26 +28,28 @@ router.get('/', ash(async function(req, res, next) {
     }
 
     if (category === 'farmers') {
+      console.log(query);
+
       const farmers = await db.Farmer.findAll({
         where: query,
-        include: {
-          model: db.Farm,
-          include: [
-            {
-              model: db.FarmImage,
-              model: db.FarmSchedule
-            },
-            {
-              model: db.FarmProduct,
-              include: db.ProductLabel
-            }
-          ]
-        }
+        // include: {
+        //   model: db.Farm,
+        //   include: [
+        //     {
+        //       model: db.FarmImage,
+        //       model: db.FarmSchedule
+        //     },
+        //     {
+        //       model: db.FarmProduct,
+        //       include: db.ProductLabel
+        //     }
+        //   ]
+        // }
       });
-      
+
       console.log(farmers);
 
-      if (farmers === []) {
+      if (farmers == []) {
         res.send({ error: "Farmers don't exist" });
         return;
       }
