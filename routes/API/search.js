@@ -39,20 +39,20 @@ router.get('/', ash(async function(req, res, next) {
             },
             {
               model: db.FarmProduct,
-              include: {
-                model: db.ProductLabel
-              }
+              include: db.ProductLabel
             }
           ]
         }
       });
+      
+      console.log(farmers);
 
       if (farmers === []) {
         res.send({ error: "Farmers don't exist" });
         return;
       }
 
-      res.send({ message: 'test' });
+      res.send({ message: 'test', farmers: farmers });
     } else if (category === 'farms') {
       const farms = await db.Farm.findAll({
         where: query,
