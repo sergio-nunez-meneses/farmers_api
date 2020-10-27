@@ -47,7 +47,7 @@ router.get('/', ash(async function(req, res, next) {
         }
       });
 
-      if (!farmers) {
+      if (farmers === []) {
         res.send({ error: "Farmers don't exist" });
         return;
       }
