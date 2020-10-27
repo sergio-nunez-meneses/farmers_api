@@ -12,8 +12,8 @@
 
 7. assuming you have already created a new heroku app and connected it to a github repository: on the dashboard overview, click on _Configure Add-ons_, and in the search input, type _Postgres_ and select it.
 
-8. ```heroku config:get DATABASE_URL --app app-name```
+8. get heroku database url: ```heroku config:get DATABASE_URL --app app-name```
 
-9. if errors: ```heroku logs --app app-name```
+9. if errors: ```heroku logs --tail --app app-name```
 
 10. ```heroku ps:stop dyno --app app-name```

@@ -8,12 +8,21 @@ router.use(cors());
 
 router.get('/', ash(async function(req, res, next) {
   const farmers = await db.Farmer.findAll({
-    include: [
-      {
-        model: db.Farm,
-        include: db.FarmImage
-      }
-    ]
+    include: {
+      model: db.Farm,
+      include: [
+        {
+          model: db.FarmImage
+        },
+        {
+          model: db.FarmSchedule
+        },
+        {
+          model: db.FarmProduct,
+          include: db.ProductLabel
+        }
+      ]
+    }
   });
 
   if (!farmers) {

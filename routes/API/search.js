@@ -72,9 +72,7 @@ router.get('/farms', ash(async function(req, res, next) {
       },
       {
         model: db.FarmProduct,
-        include: {
-          model: db.ProductLabel
-        }
+        include: db.ProductLabel
       }
     ]
   });

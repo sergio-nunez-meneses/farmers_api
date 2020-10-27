@@ -11,10 +11,15 @@ router.get('/:id', ash(async function(req, res, next) {
     where: { id: req.params.id },
     include: [
       {
-        model: db.FarmImage
+        model: db.Farmer
       },
       {
-        model: db.Farmer
+        model: db.FarmImage,
+        model: db.FarmSchedule
+      },
+      {
+        model: db.FarmProduct,
+        include: db.ProductLabel
       }
     ]
   });

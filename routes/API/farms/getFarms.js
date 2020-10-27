@@ -10,10 +10,15 @@ router.get('/', ash(async function(req, res, next) {
   const farms = await db.Farm.findAll({
     include: [
       {
-        model: db.FarmImage
+        model: db.Farmer
       },
       {
-        model: db.Farmer
+        model: db.FarmImage,
+        model: db.FarmSchedule
+      },
+      {
+        model: db.FarmProduct,
+        include: db.ProductLabel
       }
     ]
   });
