@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.use(cors());
 
-router.get('/', ash(async function(req, res, next) {
-  let category = req.query.category;
+router.get('/*', ash(async function(req, res, next) {
+  // let category = req.query.category;
   let values = req.query.value;
   let query = {};
 
@@ -27,67 +27,102 @@ router.get('/', ash(async function(req, res, next) {
       });
     }
 
-    if (category === 'farmers') {
-      console.log(query);
+    req.query = query;
+    next();
+  }
+}));
 
-      const farmers = await db.Farmer.findAll({
-        where: query,
-        include: {
-          model: db.Farm,
-          include: [
-            {
-              model: db.FarmImage
-            },
-            {
-              model: db.FarmSchedule
-            },
-            {
-              model: db.FarmProduct,
-              include: db.ProductLabel
-            }
-          ]
+router.get('/farmers', ash(async function(req, res, next) {
+  const farmers = await db.Farmer.findAll({
+    where: req.query,
+    include: {
+      model: db.Farm,
+      include: [
+        {
+          model: db.FarmImage
+        },
+        {
+          model: db.FarmSchedule
+        },
+        {
+          model: db.FarmProduct,
+          include: db.ProductLabel
         }
-      });
+      ]
+    }
+  });
 
-      if (farmers == []) {
-        res.send({ error: "Farmers don't exist" });
-        return;
+  if (farmers.length === 0) {
+    res.send({ error: "Farmers don't exist" });
+    return;
+  }
+
+  res.send(farmers);
+}));
+
+router.get('/farms', ash(async function(req, res, next) {
+  const farms = await db.Farm.findAll({
+    where: req.query,
+    include: [
+      {
+        model: db.Farmer
+      },
+      {
+        model: db.FarmImage,
+        model: db.FarmSchedule
+      },
+      {
+        model: db.FarmProduct,
+        include: {
+          model: db.ProductLabel
+        }
       }
+    ]
+  });
 
-      res.send(farmers);
-    } else if (category === 'farms') {
-      const farms = await db.Farm.findAll({
-        where: query,
+  if (farms.length === 0) {
+    res.send({ error: "Farms don't exist" });
+    return;
+  }
+
+  res.send(farms);
+}));
+
+router.get('/products', ash(async function(req, res, next) {
+  const products = await db.FarmProduct.findAll({
+    where: req.query,
+    include: [
+      {
+        model: db.ProductLabel,
+      },
+      {
+        model: db.Farm,
         include: [
-          {
-            model: db.Farmer
-          },
           {
             model: db.FarmImage,
-            model: db.FarmSchedule
+            model: db.FarmSchedule,
+            model: db.Farmer
           },
-          {
-            model: db.FarmProduct,
-            include: {
-              model: db.ProductLabel
-            }
-          }
         ]
-      });
-
-      if (!farms) {
-        res.send({ error: "Farms don't exist" });
-        return;
       }
+    ]
+  });
 
-      res.send(farms);
-    } else if (category === 'products') {
-      const products = await db.FarmProduct.findAll({
-        where: query,
+  if (products.length === 0) {
+    res.send({ error: "Products don't exist" });
+    return;
+  }
+
+  res.send(products);
+}));
+
+router.get('/labels', ash(async function(req, res, next) {
+  const labels = await db.ProductLabel.findAll({
+    where: req.query,
+    include: [
+      {
+        model: db.FarmProduct,
         include: [
-          {
-            model: db.ProductLabel,
-          },
           {
             model: db.Farm,
             include: [
@@ -99,44 +134,16 @@ router.get('/', ash(async function(req, res, next) {
             ]
           }
         ]
-      });
-
-      if (!products) {
-        res.send({ error: "Products don't exist" });
-        return;
       }
+    ]
+  });
 
-      res.send(products);
-    } else if (category === 'labels') {
-      const labels = await db.ProductLabel.findAll({
-        where: query,
-        include: [
-          {
-            model: db.FarmProduct,
-            include: [
-              {
-                model: db.Farm,
-                include: [
-                  {
-                    model: db.FarmImage,
-                    model: db.FarmSchedule,
-                    model: db.Farmer
-                  },
-                ]
-              }
-            ]
-          }
-        ]
-      });
-
-      if (!labels) {
-        res.send({ error: "Labels don't exist" });
-        return;
-      }
-
-      res.send(labels);
-    }
+  if (labels.length === 0) {
+    res.send({ error: "Labels don't exist" });
+    return;
   }
+
+  res.send(labels);
 }));
 
 module.exports = router;
