@@ -31,12 +31,14 @@ router.get('/', ash(async function(req, res, next) {
       console.log(query);
 
       const farmers = await db.Farmer.findAll({
-        // where: query,
+        where: query,
         include: {
           model: db.Farm,
           include: [
             {
-              model: db.FarmImage,
+              model: db.FarmImage
+            },
+            {
               model: db.FarmSchedule
             },
             {
@@ -47,14 +49,12 @@ router.get('/', ash(async function(req, res, next) {
         }
       });
 
-      console.log(farmers);
-
       if (farmers == []) {
         res.send({ error: "Farmers don't exist" });
         return;
       }
 
-      res.send({ message: 'test', farmers: farmers });
+      res.send(farmers);
     } else if (category === 'farms') {
       const farms = await db.Farm.findAll({
         where: query,
