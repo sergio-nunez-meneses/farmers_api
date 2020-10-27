@@ -8,7 +8,6 @@ const router = express.Router();
 router.use(cors());
 
 router.get('/*', ash(async function(req, res, next) {
-  // let category = req.query.category;
   let values = req.query.value;
   let query = {};
 

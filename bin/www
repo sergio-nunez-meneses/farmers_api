@@ -213,7 +213,7 @@ models.sequelize.sync({ force: true })
         name: imageNames[i]
       });
 
-      if (Math.random() > 0.3) {
+      if (Math.random() > 0.5) {
         await farm.addFarmer(farmer);
         await farmer.addFarm(farm);
       }
@@ -231,7 +231,7 @@ models.sequelize.sync({ force: true })
       // create and assign farm products
       for(let [type, list] of Object.entries(products)) {
         for(let product of list) {
-          if (Math.random() > 0.2) {
+          if (Math.random() > 0.3) {
             let newProduct = await farm.createFarmProduct({
               name: product,
               type: type,
