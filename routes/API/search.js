@@ -52,7 +52,7 @@ router.get('/', ash(async function(req, res, next) {
         return;
       }
 
-      res.send(farmers);
+      res.send({ message: 'test' });
     } else if (category === 'farms') {
       const farms = await db.Farm.findAll({
         where: query,
