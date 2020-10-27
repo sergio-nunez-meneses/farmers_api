@@ -8,8 +8,6 @@ const router = express.Router();
 router.use(cors());
 
 router.get('/', ash(async function(req, res, next) {
-  console.log(req.query);
-
   let category = req.query.category;
   let values = req.query.value;
   let query = {};
@@ -36,7 +34,8 @@ router.get('/', ash(async function(req, res, next) {
           model: db.Farm,
           include: [
             {
-              model: db.FarmImage
+              model: db.FarmImage,
+              model: db.FarmSchedule
             },
             {
               model: db.FarmProduct,
@@ -62,7 +61,8 @@ router.get('/', ash(async function(req, res, next) {
             model: db.Farmer
           },
           {
-            model: db.FarmImage
+            model: db.FarmImage,
+            model: db.FarmSchedule
           },
           {
             model: db.FarmProduct,
@@ -91,6 +91,7 @@ router.get('/', ash(async function(req, res, next) {
             include: [
               {
                 model: db.FarmImage,
+                model: db.FarmSchedule,
                 model: db.Farmer
               },
             ]
@@ -116,6 +117,7 @@ router.get('/', ash(async function(req, res, next) {
                 include: [
                   {
                     model: db.FarmImage,
+                    model: db.FarmSchedule,
                     model: db.Farmer
                   },
                 ]

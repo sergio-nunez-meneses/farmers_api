@@ -2,5 +2,6 @@ node_modules
 tools/db.mwb.bak
 tools/db.pdf
 uploads
+views/validateContributions.pug
 
 .gitignore
