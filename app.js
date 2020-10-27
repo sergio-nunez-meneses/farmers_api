@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var uploadRouter = require('./routes/upload');
 // API
+var setSessionIdRouter = require('./routes/API/index');
 var getFarmersRouter = require('./routes/API/farmers/getFarmers');
 var getFarmerRouter = require('./routes/API/farmers/getFarmer');
 var getFarmsRouter = require('./routes/API/farms/getFarms');
@@ -73,6 +74,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/upload', uploadRouter);
 // API
+app.use('/API/index', setSessionIdRouter);
 app.use('/API/farmers/getFarmers', getFarmersRouter);
 app.use('/API/farmers/getFarmer', getFarmerRouter);
 app.use('/API/farms/getFarms', getFarmsRouter);

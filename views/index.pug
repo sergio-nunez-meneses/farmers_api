@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  //- h1= title
-  //- p Welcome to #{title}
-  div.container
-    div.w-50.m-auto
-      form(action="/upload", method="POST", enctype="multipart/form-data")
-        div.form-group
-          input.form-control(type="file", name="sampleFile")
-        div.form-group
-          button.w-100.btn.btn-lg.bg-primary(type="submit") Upload
+  h1= title
+  p Welcome to #{title}
+  //- div.container
+  //-   div.w-50.m-auto
+  //-     form(action="/upload", method="POST", enctype="multipart/form-data")
+  //-       div.form-group
+  //-         input.form-control(type="file", name="sampleFile")
+  //-       div.form-group
+  //-         button.w-100.btn.btn-lg.bg-primary(type="submit") Upload
     
