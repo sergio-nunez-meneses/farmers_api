@@ -22,7 +22,7 @@ router.get('/', ash(async function(req, res, next) {
     for (let value of values) {
       query[Op.or].push({
         name: {
-          [Op.substring]: value
+          [Op.iLike]: '%' + value + '%'
         }
       });
     }
@@ -30,8 +30,8 @@ router.get('/', ash(async function(req, res, next) {
     if (category === 'farmers') {
       console.log(query);
 
-      const farmers = await db.Farmer.findAll({
-        where: query,
+      const farmers = await db.Farmer.findAll(
+        // where: query,
         // include: {
         //   model: db.Farm,
         //   include: [
@@ -45,7 +45,7 @@ router.get('/', ash(async function(req, res, next) {
         //     }
         //   ]
         // }
-      });
+      );
 
       console.log(farmers);
 
