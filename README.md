@@ -10,8 +10,10 @@
 
 6. ```sequelize model:create --name table_name --attributes index:type,index:type,index:type...```
 
-7. ```heroku logs --app app_name```
+7. assuming you have already created a new heroku app and connected it to a github repository: on the dashboard overview, click on _Configure Add-ons_, and in the search input, type _Postgres_ and select it.
 
-8. ```heroku ps:stop dyno --app app_name```
+8. ```heroku config:get DATABASE_URL --app app-name```
 
-9. ```heroku config:get DATABASE_URL -a app_name```
+9. if errors: ```heroku logs --app app-name```
+
+10. ```heroku ps:stop dyno --app app-name```
