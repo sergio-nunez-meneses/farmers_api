@@ -23,6 +23,7 @@ var getLabelRouter = require('./routes/API/labels/getLabel');
 var searchByRouter = require('./routes/API/search');
 var clientRouter = require('./routes/API/clients/insertClient');
 var contributionsRouter = require('./routes/API/clients/insertContributions');
+var getClientsContributionsRouter = require('./routes/API/clients/getClientsContributions');
 
 var app = express();
 
@@ -86,6 +87,7 @@ app.use('/API/labels/getLabel', getLabelRouter);
 app.use('/API/search', searchByRouter);
 app.use('/API/clients/insertClient', clientRouter);
 app.use('/API/clients/insertContributions', contributionsRouter);
+app.use('/API/clients/getClientsContributions', getClientsContributionsRouter);
 
 
 // catch 404 and forward to error handler
