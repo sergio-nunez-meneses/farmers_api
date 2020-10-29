@@ -35,7 +35,6 @@ const farmSchema = Joi.object({
 })
 
 router.use(cors());
-console.log(req.session.email);
 
 router.post('/', ash(async function(req, res, next) {
   console.log(req.session.email);
