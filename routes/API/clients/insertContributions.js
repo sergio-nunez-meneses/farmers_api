@@ -55,38 +55,37 @@ router.post('/', ash(async function(req, res, next) {
       return;
     }
 
+    // const client = await db.Client.findOne({ where: { name: req.session.clientName } });
     const client = await db.Client.findAll({
       limit: 1,
       order: [[ 'createdAt', 'DESC' ]]
     });
-    console.log('last inserted client', client);
 
-    // if (!client) {
-    //   res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
-    //   return;
-    // }
+    if (!client) {
+      res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
+      return;
+    }
 
-    // const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
-    // const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
+    const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
+    const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
 
-    // if (farmer && farm) {
-    //   res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
-    //   return;
-    // }
+    if (farmer && farm) {
+      res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
+      return;
+    }
 
-    const newFarmer = await client.createFarmerContribution({
+    await client.createFarmerContribution({
       name: req.body.farmerName,
       email: req.body.farmerEmail,
       phone: req.body.farmerPhone
     });
 
-    const newFarm = await client.createFarmContribution({
+    await client.createFarmContribution({
       name: req.body.farmName,
       address: req.body.farmAddress,
       city: req.body.farmCity,
       postal_code: req.body.farmPostalCode
     });
-    console.log('new contributions', newFarmer, newFarm);
 
     req.session = null
     res.send({ message: 'Nous avons bien reçu vos contributions!' });
