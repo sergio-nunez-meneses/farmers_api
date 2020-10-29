@@ -38,9 +38,6 @@ router.use(cors());
 
 router.post('/', ash(async function(req, res, next) {
   if (req.body !== '') {
-    console.log(req.body);
-    console.log(req.session.clientName);
-
     const farmerValidation = farmerSchema.validate({
       farmerName: req.body.farmerName,
       farmerEmail: req.body.farmerEmail,
@@ -59,7 +56,6 @@ router.post('/', ash(async function(req, res, next) {
     }
 
     const client = await db.Client.findOne({ where: { name: req.session.clientName } });
-    console.log(client);
 
     if (!client) {
       res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
@@ -68,7 +64,6 @@ router.post('/', ash(async function(req, res, next) {
 
     const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
     const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
-    console.log(farmer, farm);
 
     if (farmer && farm) {
       res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
