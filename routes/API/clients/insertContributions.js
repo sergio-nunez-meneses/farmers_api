@@ -39,7 +39,8 @@ router.use(cors());
 router.post('/', ash(async function(req, res, next) {
   if (req.body !== '') {
     console.log(req.body);
-    
+    console.log(req.session.clientName);
+
     const farmerValidation = farmerSchema.validate({
       farmerName: req.body.farmerName,
       farmerEmail: req.body.farmerEmail,
