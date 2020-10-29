@@ -63,13 +63,13 @@ router.post('/', ash(async function(req, res, next) {
     });
     console.log(client);
 
-    if (!client) {
-      res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
-      return;
-    }
+    // if (!client) {
+    //   res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
+    //   return;
+    // }
 
-    const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
-    const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
+    // const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
+    // const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
 
     // if (farmer && farm) {
     //   res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
