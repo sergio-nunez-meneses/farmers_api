@@ -12,7 +12,7 @@ const farmerSchema = Joi.object({
     .required(),
   farmerEmail: Joi.string()
     .min(5)
-    .email({ minDomainSegments: 2, tlds: { allow: ['fr', 'com', 'org', 'net'] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ['fr', 'com', 'org', 'net', 'it'] } })
     .required(),
   farmerPhone: Joi.string()
     .min(8)
@@ -37,6 +37,8 @@ const farmSchema = Joi.object({
 router.use(cors());
 
 router.post('/', ash(async function(req, res, next) {
+  console.log(req.session.clientName);
+  
   if (req.body !== '') {
     const farmerValidation = farmerSchema.validate({
       farmerName: req.body.farmerName,
