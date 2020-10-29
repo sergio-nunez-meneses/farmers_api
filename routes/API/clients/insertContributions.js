@@ -61,6 +61,7 @@ router.post('/', ash(async function(req, res, next) {
       limit: 1,
       order: [[ 'createdAt', 'DESC' ]]
     });
+    console.log(client);
 
     if (!client) {
       res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
