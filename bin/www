@@ -127,10 +127,10 @@ models.sequelize.sync({ force: true })
 
     // farm images
     let imageNames = [
-      'première-ferme.png',
-      'deuxième-ferme.png',
-      'troisième-ferme.png',
-      'quatrième-ferme.png'
+      'farm_logo.png',
+      'farm_logo.png',
+      'farm_logo.png',
+      'farm_logo.png'
     ];
 
     // farm products
