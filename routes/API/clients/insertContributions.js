@@ -37,8 +37,6 @@ const farmSchema = Joi.object({
 router.use(cors());
 
 router.post('/', ash(async function(req, res, next) {
-  console.log(req.session.email);
-
   if (req.body !== '') {
     const farmerValidation = farmerSchema.validate({
       farmerName: req.body.farmerName,
@@ -61,7 +59,7 @@ router.post('/', ash(async function(req, res, next) {
       limit: 1,
       order: [[ 'createdAt', 'DESC' ]]
     });
-    console.log(client);
+    console.log('last inserted client', client);
 
     // if (!client) {
     //   res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
@@ -88,7 +86,7 @@ router.post('/', ash(async function(req, res, next) {
       city: req.body.farmCity,
       postal_code: req.body.farmPostalCode
     });
-    console.log(newFarmer, newFarm);
+    console.log('new contributions', newFarmer, newFarm);
 
     req.session = null
     res.send({ message: 'Nous avons bien reçu vos contributions!' });
