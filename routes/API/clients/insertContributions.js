@@ -35,10 +35,11 @@ const farmSchema = Joi.object({
 })
 
 router.use(cors());
+console.log(req.session.email);
 
 router.post('/', ash(async function(req, res, next) {
-  console.log(req.session.clientName);
-  
+  console.log(req.session.email);
+
   if (req.body !== '') {
     const farmerValidation = farmerSchema.validate({
       farmerName: req.body.farmerName,
@@ -57,7 +58,7 @@ router.post('/', ash(async function(req, res, next) {
       return;
     }
 
-    const client = await db.Client.findOne({ where: { name: req.session.clientName } });
+    const client = await db.Client.findOne({ where: { name: req.session.email } });
 
     if (!client) {
       res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });

@@ -39,7 +39,8 @@ router.post('/', ash(async function(req, res, next) {
     });
 
     if (client) {
-      req.session.clientName = req.body.name;
+      req.session.email = req.body.email;
+      console.log(req.session.email);
       res.send({ message: 'Nous avons bien enregistré vos cordonnés!' });
       return;
     }
