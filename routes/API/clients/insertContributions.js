@@ -71,23 +71,24 @@ router.post('/', ash(async function(req, res, next) {
     const farmer = await db.FarmerContribution.findOne({ where: { email: req.body.farmerEmail }});
     const farm = await db.FarmContribution.findOne({ where: { name: req.body.farmName }});
 
-    if (farmer && farm) {
-      res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
-      return;
-    }
+    // if (farmer && farm) {
+    //   res.send({ warning: 'Les contributions que vous venez de nous adresser existent déjà sur nos registres!' });
+    //   return;
+    // }
 
-    await client.createFarmerContribution({
+    const newFarmer = await client.createFarmerContribution({
       name: req.body.farmerName,
       email: req.body.farmerEmail,
       phone: req.body.farmerPhone
     });
 
-    await client.createFarmContribution({
+    const newFarm = await client.createFarmContribution({
       name: req.body.farmName,
       address: req.body.farmAddress,
       city: req.body.farmCity,
       postal_code: req.body.farmPostalCode
     });
+    console.log(newFarmer, newFarm);
 
     req.session = null
     res.send({ message: 'Nous avons bien reçu vos contributions!' });
