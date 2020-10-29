@@ -57,7 +57,10 @@ router.post('/', ash(async function(req, res, next) {
       return;
     }
 
-    const client = await db.Client.findOne({ where: { name: req.session.email } });
+    const client = await db.Client.findAll({
+      limit: 1,
+      order: [[ 'createdAt', 'DESC' ]]
+    });
 
     if (!client) {
       res.send({ error: 'Vous devez vous enregistrer pour contribuer à notre appli!' });
